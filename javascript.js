@@ -1,3 +1,16 @@
+const elections = document.querySelector(".elections");
+const result = document.querySelector(".result");
+const points = document.querySelector(".points");
+
+const restartDiv = document.querySelector(".restartDiv")
+const restartButton = document.createElement("button")
+restartButton.textContent = "🔄";
+restartButton.setAttribute ("id","restartButton");
+
+let you;
+let w=0;
+let l=0;
+
 
 function getComputerChoice (){
    let n = Math.floor(Math.random() * 3) + 1;
@@ -15,13 +28,14 @@ function getComputerChoice (){
    }
 }
 
-//console.log(getComputerChoice());
-
 function playRound(playerSelection,computerSelection){
 
     playerSelection = playerSelection.toUpperCase();
     computerSelection =computerSelection.toUpperCase();
-    
+    elections.textContent="You chose " + playerSelection + " the computer chose " + computerSelection + " so, ";
+
+
+
     if(playerSelection==computerSelection){
         return "Tie"
     }
@@ -52,31 +66,90 @@ function playRound(playerSelection,computerSelection){
 
 }
 
+function totalPoints (result) {
 
-/*const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(computerSelection);
-console.log(playRound(playerSelection, computerSelection));*/
+    if (result == "You win"){
+        w=w+1;
+    }
+    if (result =="You lose"){
+        l = l+1;
+    }
 
-function game () {
-    let w =0;
-    let l =0;
-    for (let i =0 ; i<5 && w!=3 && l!=3;i++ ){
+    if(w ==5) {
+        return "You win the match! " +w+ "-" +l
+    }
 
-        let playerSelection = prompt("What's your selection?");
-        let computerSelection = getComputerChoice();
-        let msg = playRound(playerSelection,computerSelection);
-        console.log("You chose " + playerSelection + " the computer chose " + computerSelection + " so, " + msg );
+    if(l ==5) {
+        return "You lose the match! " +w+ "-" +l
+    }
 
-        if (msg == "You win"){
-            w=w+1;
-        }
-        if (msg =="You lose"){
-            l = l+1;
+    return "w: "+w + " l:" +l;
+}
+
+
+
+document.addEventListener("click", (e) =>{
+
+    if(e.target.id == "restartButton")
+    {
+        console.log("restart button was pressed")
+        w = 0;
+        l = 0;
+        elections.textContent = "";
+        result.textContent ="";
+        points.textContent ="";
+        restartDiv.removeChild(restartButton);
+    }
+
+    if(w<5 && l<5) {
+
+    
+
+        switch(e.target.id) {
+
+            
+            case "rock":
+                
+                you=playRound("rock",getComputerChoice())
+                result.textContent=you;
+                points.textContent=totalPoints(you)
+                
+                if (w ==5 || l ==5){
+
+                    restartDiv.appendChild(restartButton);
+        
+                }
+                
+                break;
+            
+            case "paper":
+                you=playRound("paper",getComputerChoice())
+                result.textContent=you;
+                points.textContent=totalPoints(you)
+                
+                if (w ==5 || l ==5){
+
+                    restartDiv.appendChild(restartButton);
+        
+                }
+                
+                break;
+            
+            case "scissor":
+                you=playRound("scissor",getComputerChoice())
+                result.textContent=you;
+                points.textContent=totalPoints(you)
+                
+                if (w ==5 || l ==5){
+
+                    restartDiv.appendChild(restartButton);
+        
+                }
+                
+                break;
+            
         }
     }
 
-    console.log("The results are: Wins: " +w+ " Loses: " +l );
-}
 
-game()
+}) 
