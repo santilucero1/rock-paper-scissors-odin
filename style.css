@@ -17,7 +17,7 @@
 body {
     font-family: monospace;
     font-style: oblique;
-    background-color:#596e79;
+    background-color:#393E46;
     margin: 0px;
     display: flex;
     flex-direction: column;
@@ -36,11 +36,11 @@ button {
 }
 
 p {
-    color: #f0ece2;
+    color: #EEEEEE;
 }
 
 h1 {
-    color:#c7b198;
+    color:#EEEEEE;
 }
 
 .result {
